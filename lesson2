@@ -1,1 +1,106 @@
-test add hw-2
+import Foundation
+
+//task 1
+func Proverka (_ n : Int){
+    if (n % 2 == 0){
+        print("Число ",n," четное")
+    }else{
+        print("Число ",n," нечетное")
+
+    }
+}
+print("------ task 1 ------")
+Proverka(2)
+Proverka(9)
+
+
+//task 2
+func Proverka3 (_ n : Int){
+    if (n % 3 == 0){
+        print("Число ",n," делится на 3 без остатка")
+    }else{
+        print("Число ",n," не делится на 3 без остатка")
+
+    }
+}
+print("------ task 2 ------")
+Proverka3(12)
+Proverka3(13)
+
+//task 3
+func GenArray(_ n : Int) -> [Int]{
+    var k = 0
+    var arrayM = [Int]()
+    for k in 1...n {
+        arrayM.append (k)
+    }
+    return arrayM
+}
+print("------ task 3 ------")
+print(GenArray(100))
+
+//task 4
+//Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
+var array100 = GenArray(100)
+var i = 0
+
+func ProverkaN (_ n : Int,_ m : Int) -> Bool {
+    if (n % m == 0){
+        return true
+    }else{
+        return false
+    }
+}
+print("------ task 4 ------")
+print("Начальное состояние массива: ", array100)
+while i<=array100.count-1  {
+    if (ProverkaN(array100[i],2) || !ProverkaN(array100[i],3)){
+        array100.remove(at: i)
+        i -= 1
+    }
+    i += 1
+}
+print("Удалены все четные числа и числа которые не кратны 3: ",array100)
+
+
+//task 5
+//Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 100 элементов
+func GenArrayFibo(_ n : Int) -> [Int]{
+    var arrayGenFibo = [0,1]
+    var j = 1
+    for j in 1...n {
+        arrayGenFibo.append (arrayGenFibo[j]+arrayGenFibo[j-1])
+    }
+    return arrayGenFibo
+}
+print("------ task 5 ------")
+print(GenArrayFibo(50))
+
+
+//task 6
+//Заполнить массив из 100 элементов различными простыми числами. Натуральное число, большее единицы, называется простым, если оно делится только на себя и на единицу. Для нахождения всех простых чисел не больше заданного числа n, следуя методу Эратосфена, нужно выполнить следующие шаги:
+
+//a. Выписать подряд все целые числа от двух до n (2, 3, 4, ..., n).
+//b. Пусть переменная p изначально равна двум — первому простому числу.
+//c. Зачеркнуть в списке числа от 2 + p до n, считая шагом p..
+//d. Найти первое не зачёркнутое число в списке, большее, чем p, и присвоить значению переменной p это число.
+//e. Повторять шаги c и d, пока возможно.
+var arrayNatural = GenArray(100)
+print("------ task 6 ------")
+print("Начальное состояние ",arrayNatural)
+
+var q = 1
+var l = 1
+
+while q<=arrayNatural.count-1  {
+    l = q+1
+    while l<=arrayNatural.count-1 {
+        if (arrayNatural[l] % arrayNatural[q] == 0){
+            arrayNatural.remove(at: l)
+            l -= 1
+        }
+        l += 1
+    }
+    q += 1
+}
+print("Сформирован массив простых чисел : ",arrayNatural)
