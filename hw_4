@@ -1,0 +1,86 @@
+import UIKit
+
+//task 1. Описать класс Car c общими свойствами автомобилей и пустым методом действия по аналогии с прошлым заданием.
+class Car{
+    let marka : String
+    let model : String
+    let power : Int
+    let countWheel : Int
+    var mode : carMode
+    
+    init (marka : String, model : String, power : Int, countWheel : Int, mode : carMode){
+        self.marka = marka
+        self.model = model
+        self.power = power
+        self.countWheel = countWheel
+        self.mode = mode
+        //print("создан элемент")
+    }
+    
+    func modeChange(modeNew : carMode){
+            }
+}
+
+//task 2. Описать пару его наследников trunkCar и sportСar. Подумать, какими отличительными свойствами обладают эти автомобили. Описать в каждом наследнике специфичные для него свойства.
+//task 3. Взять из прошлого урока enum с действиями над автомобилем. Подумать, какие особенные действия имеет trunkCar, а какие – sportCar. Добавить эти действия в перечисление.
+
+enum carMode : String{
+    case sport = "Гоняю в спорт режиме"
+    case drag = "Участвую в драг рейсинг"
+    case road = "Еду по шоссе"
+    case free = "Готов взять груз"
+    case inWork = "Доставляю груз"
+}
+
+
+
+//task 4. В каждом подклассе переопределить метод действия с автомобилем в соответствии с его классом.
+
+class SportCar : Car{
+    let timeTo100KmH : Double
+    let haveTurbine : Bool = true
+    init(timeTo100KmH : Double, marka : String, model : String, power : Int,mode : carMode) {
+        self.timeTo100KmH = timeTo100KmH
+        super.init(marka: marka, model: model, power: power, countWheel: 4, mode : mode)
+    }
+    
+    override func modeChange(modeNew : carMode){
+        self.mode = modeNew
+    }
+}
+
+class TruckCar : Car{
+    let type : String
+    let rasxodNa100km : Double
+    let weightCan : Double
+    init(type : String, rasxodNa100km : Double, weightCan : Double, marka : String, model : String, power : Int, countWheel : Int, mode : carMode) {
+        self.type = type
+        self.rasxodNa100km = rasxodNa100km
+        self.weightCan = weightCan
+        super.init(marka: marka, model: model, power: power, countWheel: countWheel, mode: mode)
+    }
+    override func modeChange(modeNew : carMode){
+        self.mode = modeNew
+    }
+}
+
+//task 5. Создать несколько объектов каждого класса. Применить к ним различные действия.
+//task 6. Вывести значения свойств экземпляров в консоль.
+
+var car2 = SportCar(timeTo100KmH: 6.2, marka: "Audi", model: "A3sport", power: 280, mode: .sport)
+var car3 = SportCar(timeTo100KmH: 3.2, marka: "Tesla", model: "CyberTruck", power: 390, mode: .drag)
+var truck1 = TruckCar(type: "Самосвал", rasxodNa100km: 25.4, weightCan: 4500, marka: "Kamaz", model: "4500", power: 240, countWheel: 6, mode: .free)
+var truck2 = TruckCar(type: "Фура", rasxodNa100km: 16.4, weightCan: 2500, marka: "Газель", model: "2202", power: 140, countWheel: 4, mode: .inWork)
+
+
+print(car2.marka, car2.model, car2.power, car2.countWheel, car2.haveTurbine, car2.mode.rawValue, car2.timeTo100KmH)
+car2.modeChange(modeNew: .inWork)
+print(car2.marka, car2.model, car2.power, car2.countWheel, car2.haveTurbine, car2.mode.rawValue, car2.timeTo100KmH)
+
+print(car3.marka, car3.model, car3.power, car3.countWheel, car3.haveTurbine, car3.mode.rawValue, car3.timeTo100KmH)
+
+print(truck1.marka, truck1.model, truck1.power, truck1.countWheel, truck1.type, truck1.rasxodNa100km, truck1.weightCan, truck1.mode.rawValue)
+truck1.modeChange(modeNew: .sport)
+print(truck1.marka, truck1.model, truck1.power, truck1.countWheel, truck1.type, truck1.rasxodNa100km, truck1.weightCan, truck1.mode.rawValue)
+
+print(truck2.marka, truck2.model, truck2.power, truck2.countWheel, truck2.type, truck2.rasxodNa100km, truck2.weightCan, truck2.mode.rawValue)
