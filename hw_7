@@ -1,0 +1,47 @@
+import UIKit
+
+//1. Придумать класс, методы которого могут завершаться неудачей и возвращать либо значение, либо ошибку Error?. Реализовать их вызов и обработать результат метода при помощи конструкции if let, или guard let.
+
+//2. Придумать класс, методы которого могут выбрасывать ошибки. Реализуйте несколько throws-функций. Вызовите их и обработайте результат вызова при помощи конструкции try/catch.
+
+enum ErrorM: Error{
+    case sendZero
+    case sendMeneeZero
+}
+
+protocol Car {
+    var model : String {get}
+    var odometr : Double {get set}
+}
+
+class CarTaxi : Car {
+    var model : String = ""
+    var odometr : Double = 0
+    
+    func odo(km : Double) throws {
+        guard !(km == 0) else {throw ErrorM.sendZero}
+        guard !(km < 0) else {throw ErrorM.sendMeneeZero}
+        self.odometr += km
+    }
+}
+
+    extension CarTaxi: CustomStringConvertible {
+        var description: String {
+        return "Автомобиль марки \(model). Пробег = \(odometr)) "
+    }
+}
+
+
+var logan = CarTaxi()
+logan.model = "Renault Logan"
+logan.odometr = 1000
+print(logan.description)
+
+do{
+    try logan.odo(km: -1)
+    print(logan.description)
+}catch ErrorM.sendMeneeZero{
+    print("передан пробег менее 0 км. Укажите пробег > 0 км")
+}catch ErrorM.sendZero{
+    print("передан пробег = 0 км. Укажите пробег > 0 км")
+}
